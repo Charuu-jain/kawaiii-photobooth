@@ -463,12 +463,24 @@ export default function KawaiiPhotobooth() {
         .kb-float { animation: kb-float 3.2s ease-in-out infinite; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-thumb { background: ${COLORS.plum}55; border-radius: 8px; }
-      `}</style>
+        ::-webkit-scrollbar-thumb { background: ${COLORS.plum}55; border-radius: 8px; }
+
+                @media (max-width: 860px) {
+                  .kb-booth-grid { grid-template-columns: 1fr !important; }
+                }
+                @media (max-width: 480px) {
+                  .kb-main { padding: 14px 14px 6px !important; }
+                  .kb-header { padding: 12px 14px 10px !important; }
+                  .kb-header .kb-display { font-size: 19px !important; }
+                  .kb-countdown-overlay { font-size: 60px !important; }
+                }
+              `}</style>
+      `
 
       <canvas ref={captureCanvasRef} style={{ display: "none" }} />
 
       {/* ---------------- HEADER ---------------- */}
-      <header style={styles.header}>
+      <header className="kb-header" style={styles.header}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <img src={LOGO_URI} alt="Kawaii Booth logo" style={styles.logoImg} />
           <h1 className="kb-display" style={styles.logo}>Kawaii Booth</h1>
@@ -497,10 +509,10 @@ export default function KawaiiPhotobooth() {
 
       <ScallopDivider color={COLORS.plum} />
 
-      <main style={styles.main}>
+      <main className="kb-main" style={styles.main}>
         {/* ============================= BOOTH TAB ============================= */}
         {tab === "booth" && (
-          <div style={styles.boothGrid}>
+          <div className="kb-booth-grid" style={styles.boothGrid}>
             <div>
               <div
                 ref={containerRef}
@@ -572,7 +584,7 @@ export default function KawaiiPhotobooth() {
                       </div>
                     ))}
                     {(countingDown !== null || autoCountdown !== null) && (
-                      <div style={styles.countdownOverlay} className="kb-display">
+                      <div style={styles.countdownOverlay} className="kb-display kb-countdown-overlay">
                         <div>
                           {autoRunning
                             ? (autoCountdown === null ? "📸" : autoCountdown)
